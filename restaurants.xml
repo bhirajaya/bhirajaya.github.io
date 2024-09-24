@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="restaurants.dtd"?>
+<restaurants>
+    <restaurant id="r0">
+        <name>Kabana</name>
+        <cuisine>Indian</cuisine>
+        <city>Berkeley</city>
+        <open>12pm</open>
+        <close>9pm</close>
+    </restaurant>
+    <restaurant id="r1">
+        <name>Cheeseboard</name>
+        <cuisine>Italian</cuisine>
+        <city>Berkeley</city>
+        <open>11am</open>
+        <close>8pm</close>
+    </restaurant>
+    <restaurant id="r2">
+        <name>The Butcher's Son</name>
+        <cuisine>American</cuisine>
+        <city>Berkeley</city>
+        <open>9am</open>
+        <close>3pm</close>
+    </restaurant>
+</restaurants>  

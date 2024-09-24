@@ -1,0 +1,8 @@
+<!ELEMENT restaurants (restaurant+)> 
+<!ELEMENT restaurant (name,cuisine,city,open,close)> 
+<!ATTLIST restaurant id ID #REQUIRED>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT cuisine (#PCDATA)>
+<!ELEMENT city (#PCDATA)>
+<!ELEMENT open (#PCDATA)>
+<!ELEMENT close (#PCDATA)>

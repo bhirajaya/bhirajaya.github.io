@@ -1,22 +1,84 @@
 {
-	"movies": [
+	"cats": [
 		{
-			"Title": "Lost In Translation",
-			"Director": "Sofia Coppola",
-			"Rating": "R",
-			"Year": "2003"
+			"Pic": "cats pic/Jabber.jpg",
+			"Name": "Jabber",
+			"Sex": "Male",
+			"Color": "Tabby",
+			"Year_Borned": "2015",
+			"Mother": "Black Mom",
+			"Father": "Big Guy",
+			"Status": "Back to cat planet in 2020"
 		},
 		{
-			"Title": "Casino Royale",
-			"Director": "Martin Campbell",
-			"Rating": "PG-13",
-			"Year": "2006"
+			"Pic": "cats pic/Jajang.jpg",
+			"Name": "Jajang",
+			"Sex": "Male",
+			"Color": "Black",
+			"Year_Borned": "2021",
+			"Mother": "Smeared",
+			"Father": "NA",
+			"Status": "Present. The indoor garden pack"
 		},
 		{
-			"Title": "The Dark Knight",
-			"Director": "Christopher Nolan",
-			"Rating": "PG-13",
-			"Year": "2008"
+			"Pic": "cats pic/Yuzu.jpg",
+			"Name": "Yuzu",
+			"Sex": "Male",
+			"Color": "Orange",
+			"Year_Borned": "2021",
+			"Mother": "Smeared",
+			"Father": "NA",
+			"Status": "Present. The indoor garden pack"
+		},
+		{
+			"Pic": "cats pic/Lamoon.jpg",
+			"Name": "Lamoon",
+			"Sex": "Female",
+			"Color": "Calico",
+			"Year_Borned": "2021",
+			"Mother": "Smeared",
+			"Father": "NA",
+			"Status": "Present. The indoor garden pack"
+		},
+		{
+			"Pic": "cats pic/Lamom.jpg",
+			"Name": "Lamom",
+			"Sex": "Male",
+			"Color": "Tabby",
+			"Year_Borned": "2021",
+			"Mother": "Smeared",
+			"Father": "NA",
+			"Status": "Present. The indoor garden pack"
+		},
+		{
+			"Pic": "cats pic/Shiro.jpg",
+			"Name": "Shiro",
+			"Sex": "Male",
+			"Color": "Tabby with white spots",
+			"Year_Borned": "2023",
+			"Mother": "NA",
+			"Father": "NA",
+			"Status": "Present. The day wanderer pack"
+		},
+		{
+			"Pic": "cats pic/Shio.jpg",
+			"Name": "Shio",
+			"Sex": "Female",
+			"Color": "Tabby",
+			"Year_Borned": "2023",
+			"Mother": "NA",
+			"Father": "NA",
+			"Status": "Present. The day wanderer pack"
+		},
+		{
+			"Pic": "cats pic/Shiba.jpg",
+			"Name": "Shiba",
+			"Sex": "Female",
+			"Color": "Tabby",
+			"Year_Borned": "2023",
+			"Mother": "NA",
+			"Father": "NA",
+			"Status": "Present. The sole indoor housy"
 		}
 	]
 }

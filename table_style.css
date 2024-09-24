@@ -1,8 +1,44 @@
 table {
-  width: 75%;
+  width: 85%;
   font-size: large;
+  /* position: relative; */
+  /* display: table-cell; */
+
+  margin-left: auto; 
+  margin-right: auto;
+  padding: 20px;
+  /* border: 5px white; */
+  border-spacing: 5px;
+  /* unicode-bidi: isolate; */
+  /* box-sizing: border-box; */
+  border-collapse: separate;
 }
 
-td {
+th, td {
   padding: 10px;
+  /* max-width: 500px; */
+  background-color:rgb(236, 238, 238);
+  border: 10px white;
+  /* border-width: 10px; */
+  border-radius: 5px;
+  /* border-collapse: collapse; */
+}
+
+tr {
+
+}
+
+img {
+  position: relative;
+  left: 0;
+  right: 0;
+  
+  width: 70%;
+  max-width: 300px;
+  
+  height: auto;
+  
+  object-fit: contain;
+  object-position: center;
+  border-radius: 50%;
 }

@@ -1,0 +1,27 @@
+{
+	"restaurants": [{
+		"id": "0",
+		"name": "Kabana",
+		"cuisine": "Indian",
+		"city": "Berkeley",
+		"open": "12pm",
+		"close": "9pm"
+	},
+	{
+		"id": "1",
+		"name": "Cheeseboard",
+		"cuisine": "Italian",
+		"city": "Berkeley",
+		"open": "11am",
+		"close": "8pm"
+	},
+	{
+		"id": "2",
+		"name": "The Butcher's Son",
+		"cuisine": "American",
+		"city": "Berkeley",
+		"open": "9am",
+		"close": "3pm"
+	}]
+	
+}

@@ -1,9 +1,12 @@
 <!DOCTYPE HTML>  
 <html>  
     <header>
+        <!-- startbootstrap-grayscale-gh-pages/css/styles.css -->
+        <!-- Example_CSS_Style Templates/style1.css -->
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.4/dist/themes/semantic/bootstrap-table-semantic.min.css"> -->
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="table_style.css">
-        <title>My Webpage Title</title>
+        <title>My Cats</title>
     </header>
     <body>  
         <!---Navigation--->
@@ -11,7 +14,7 @@
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
                 <!--This code defines the "My Webpage" link in the top right corner of the navigation pane-->
-                <a class="navbar-brand" href="">My Webpage</a>
+                <a class="navbar-brand" href="./index.html">My Webpage</a>
                 <!--This code defines the "List" link in the top left corner of the navigation pane-->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="./list.html">List</a></li>
@@ -20,7 +23,7 @@
         </nav>
         <!--This code creates the middle section of the webpage-->
         <header class="masthead bg-primary text-white text-center">
-            <h1>My Movies</h1>
+            <h1>My Cats</h1>
         </header>
         <!--Here is where the table will be loaded in.  The actual table will be loaded in JavaScript.-->
         <section class="mt-5 text-center">
@@ -70,7 +73,13 @@
                     tr = jsonTable.insertRow(-1);
                     for (let key in data[root][item]) {
                        var tabCell = tr.insertCell(-1);
-                       tabCell.innerHTML = data[root][item][key];
+                       if (key == "Pic") {
+                        var img = document.createElement("IMG");
+                        img.src = data[root][item][key];
+                        tabCell.appendChild(img);
+                       }else{
+                        tabCell.innerHTML = data[root][item][key];
+                       }                       
                     }
                 })
                 /*
