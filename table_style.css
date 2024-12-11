@@ -24,9 +24,18 @@ th, td {
   /* border-collapse: collapse; */
 }
 
-tr {
+button, input {
+  font-size: small;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+  border: 10px white;
+  border-radius: 5px;
+}
 
-
+div {
+  font-size: small;
 }
 
 img {

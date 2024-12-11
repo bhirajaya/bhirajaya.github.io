@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>  
 <html>  
     <header>
+        <!-- The website design builds upon a previous class assignment, adapted to focus on the search functionality. -->
         <!-- startbootstrap-grayscale-gh-pages/css/styles.css -->
         <!-- Example_CSS_Style Templates/style1.css -->
         <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.4/dist/themes/semantic/bootstrap-table-semantic.min.css"> -->
@@ -13,9 +14,7 @@
         <!--This section of code defines the navigation bar at the top of the page.  The classes used here are defined in the style.css file.-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <!--This code defines the "My Webpage" link in the top right corner of the navigation pane-->
                 <a class="navbar-brand" href="./total_page.html">All Data</a>
-                <!--This code defines the "List" link in the top left corner of the navigation pane-->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="./index.html">Search</a></li>
                 </ul>
@@ -26,17 +25,19 @@
         <header class="masthead bg-primary text-white text-center">
             <h1>Search for Innovation Product</h1>
             <input type="text" class="search" placeholder="Enter Terms"></input>
-            <button onclick="search(this)" class="search">search!</button>
+            <button onclick="click_search(this)" class="search">search!</button>
             <span class="search"></span>
         </header>
 
-        <!--Here is where the table will be loaded in.  The actual table will be loaded in JavaScript.-->
-
+        
+        <!-- Pagination of table data -->
         <section class="mt-5 text-center">
             <div id="showPage"></div>
             <button id="prev-btn">Previous</button>
             <button id="next-btn">Next</button>
         </section>
+
+        <!--Here is where the table will be loaded in.  The actual table will be loaded in JavaScript.-->
         <section class="mt-5 text-center">
             <div id="showDataJSON"></div>
         </section>

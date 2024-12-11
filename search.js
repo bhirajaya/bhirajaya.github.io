@@ -1,3 +1,4 @@
+// variables to help navigate each subset of info
 const perPage = 10;
 let currentPage = 1;
 let start = 0;
@@ -5,7 +6,16 @@ let stop = start+perPage;
 var items_n = 0;
 var totalPages = 0;
 
-let nword_title = {}; // Declare the global variable
+// html element 
+var pageContainer = document.getElementById("showPage");
+var divContainer = document.getElementById("showDataJSON");
+
+// json file path and variable to store data in file
+const filePaths = ['./Data/nword_title_1000rows.json', './Data/nword_detail_1000rows.json', './Data/nword_highlight_1000rows.json',
+  './Data/invid_title_1000rows_utf8.json', './Data/invid_detail_1000rows_utf8.json', './Data/invid_highlight_1000rows_utf8.json',
+  './Data/inno_data_1000rows_formatted.json'
+];
+let nword_title = {}; 
 let nword_detail = {};
 let nword_highlight = {};
 let invid_title = {};
@@ -13,19 +23,11 @@ let invid_detail = {};
 let invid_highlight = {};
 let inno_data = {}
 
-var pageContainer = document.getElementById("showPage");
-var divContainer = document.getElementById("showDataJSON");
-
-const filePaths = ['./nword_title_1000rows.json', './nword_detail_1000rows.json', './nword_highlight_1000rows.json',
-  './invid_title_1000rows_utf8.json', './invid_detail_1000rows_utf8.json', './invid_highlight_1000rows_utf8.json',
-  './inno_data_1000rows_formatted.json'
-];
-
+// get data from json files
 Promise.all(filePaths.map(filePath => fetch(filePath)))
   .then(responses => Promise.all(responses.map(response => response.json())))
   .then(jsonDataArray => {
     // jsonDataArray contains the parsed JSON data from each file
-    // console.log(jsonDataArray);
     nword_title = jsonDataArray[0];
     nword_detail = jsonDataArray[1];
     nword_highlight = jsonDataArray[2];
@@ -37,36 +39,38 @@ Promise.all(filePaths.map(filePath => fetch(filePath)))
   .catch(error => console.error('Error reading JSON files:', error));
 
 
-function search(element) {
+// trigger when user click search
+function click_search(element) {
 
+  // get input value
   const cl = element.getAttribute('class');
   const input = document.querySelectorAll(`input.${cl}`)[0].value;
 
+  // catch for null text search
   let output = "";
   if (input===null || input.trim() == "") {
       output = "Input some text please"
   } else {
       output = "Search for " + input
+      // call actual search function
+      search(input)  
   }
-
   document.querySelectorAll(`span.${cl}`)[0].innerHTML = output  
-
-  try_search(input)  
 }
 
-function try_search(search_term) {
+// seach function
+function search(search_term) {
+  //make lower case and split to list of different word
   slw = search_term.toLowerCase();
   words_l = slw.split(" ")
-  // console.log(words_l)
 
+  // object to store total summation of score of each word
   multi_word_score = {}
-
+  // perform search for each word
   for (let i=0; i < words_l.length; i++){
     word = words_l[i];
-    
     let one_word_score = combine_score(word,invid_title,invid_detail,invid_highlight,nword_title,nword_detail,nword_highlight,10,2);
-    // console.log(word, one_word_score)
-
+    // update score from each word to multiple word score object
     Object.keys(one_word_score).forEach((docid) => {
       let old_val = multi_word_score[docid];
       if (old_val === undefined) {
@@ -76,15 +80,16 @@ function try_search(search_term) {
     });
   }
   
-  // console.log(multi_word_score)
+  // sort list of documents by the total score, high to low
   sort_obj = sortObj(multi_word_score)
-
   n_res = sort_obj.length
 
+  // if found noting, show no table
   if (n_res==0) {
     divContainer.innerHTML = "";
     pageContainer.innerHTML = "found nothing";
   } else {
+    //else add result document to a list, also add the score as another data columns
     res_l = []
     for (let i=0; i < n_res; i++){
       docid = sort_obj[i][0]
@@ -93,21 +98,22 @@ function try_search(search_term) {
       one_data['score'] = cal_score
       res_l.push(one_data)
     }
-    
     res_d = {'search_result':res_l}
-    // console.log(res_d)
-  
+
+    // update pagination variable 
     items_n = n_res;
     totalPages = Math.ceil(items_n / perPage);
     currentPage = 1;
     start = 0;
     stop = start+perPage;
+    // show results
     pageContainer.innerHTML = `Page ${currentPage} from ${totalPages}. Records ${start+1} to ${stop} of ${items_n}.`;
     make_table(res_d, start, stop)
   }
-
+  
 }
 
+// return list of documents that have exact word match with the query
 function one_word_match(word, invid) {
   if (word in invid) {
     return invid[word]
@@ -116,29 +122,29 @@ function one_word_match(word, invid) {
   }
 }
 
+// return list of documents that have a part of string containing query
 function one_word_instr(word, invid) {
   let result = [];
   Object.keys(invid).forEach((key) => {
     if (key.includes(word)) {
-      // console.log(key, invid[key])
       result.push(...invid[key])
     }
   });
   return result
 }
 
+// function to calculate similarity score of a query and a document
 function score(result, nd, score) {
   let score_d = {}
   result.forEach((docid) => {
-    // console.log(nd[docid])
     score_d[docid] = score/Math.log(10+nd[docid])
   });
   return score_d
 }
 
-
+// function to calculation score of one word query
 function combine_score(q, invid_t, invid_d, invid_h, nd_t, nd_d, nd_h, score_match, score_instr){
-  total_score = {}
+  // calculate score from query and word in Title, Detail, and Highlight by whole word match and substring match
   match_t = score(one_word_match(q, invid_t), nd_t, score_match)
   match_d = score(one_word_match(q, invid_d), nd_d, score_match)
   match_h = score(one_word_match(q, invid_h), nd_h, score_match)
@@ -146,7 +152,8 @@ function combine_score(q, invid_t, invid_d, invid_h, nd_t, nd_d, nd_h, score_mat
   str_d = score(one_word_instr(q, invid_d), nd_d, score_instr)
   str_h = score(one_word_instr(q, invid_h), nd_h, score_instr)
 
-
+  // combine score together to one object
+  total_score = {}
   Object.keys(match_t).forEach((docid) => {
     let old_val = total_score[docid];
     if (old_val === undefined) {
@@ -191,17 +198,17 @@ function combine_score(q, invid_t, invid_d, invid_h, nd_t, nd_d, nd_h, score_mat
     total_score[docid] = old_val + str_h[docid];
   });
 
-  
   return total_score
 }
 
+// function to sort from values, descending order
 function sortObj(obj) {
   // Sort object as list based on values
   sort_obj = Object.keys(obj).map(k => ([k, obj[k]])).sort((a, b) => (b[1] - a[1]))
   return sort_obj
 }
 
-
+// function to add data to html table format
 function make_table(data, start, stop) {
         
   /*
@@ -209,7 +216,6 @@ function make_table(data, start, stop) {
   */
   var jsonTable = document.createElement("table");
   var tr = jsonTable.insertRow(-1);   
-  // jsonTable.style.width = "75%";
   let root;
   for (let prop in data) {
       root = prop;
@@ -223,37 +229,31 @@ function make_table(data, start, stop) {
       var th = document.createElement("th");      
       th.innerHTML = header;
       tr.appendChild(th);
-  })              
+  })    
+
   /*
   This section adds the data into each row of the list
   */
   let items = Object.keys(data[root]);
   window.items_n = items.length
   
-  // slice item
+  // slice items to show only a subset in each page
   items_s = items.slice(start, stop);
 
   items_s.forEach(item => {
       tr = jsonTable.insertRow(-1);
       for (let key in data[root][item]) {
           var tabCell = tr.insertCell(-1);
-          if (key == "Pic") {
-          var img = document.createElement("IMG");
-          img.src = data[root][item][key];
-          tabCell.appendChild(img);
-          }else{
-          tabCell.innerHTML = data[root][item][key];
-          }                       
+          tabCell.innerHTML = data[root][item][key];                     
       }
   })
+
   /*
   This section adds the table to the HTML
   */
-  
   divContainer.innerHTML = "";
   divContainer.appendChild(jsonTable);
 }
-
 
 
 // Add event listeners for pagination buttons
@@ -262,7 +262,6 @@ document.getElementById('prev-btn').addEventListener('click', () => {
       currentPage--;
       start -= perPage;
       stop -= perPage;
-      // console.log("click prev", currentPage)
       pageContainer.innerHTML = `Page ${currentPage} from ${totalPages}. Records ${start+1} to ${stop} of ${items_n}.`;
       make_table(res_d, start, stop);
   }
@@ -273,7 +272,6 @@ document.getElementById('next-btn').addEventListener('click', () => {
     currentPage++;
     start += perPage
     stop += perPage
-    // console.log("click next", currentPage)
     pageContainer.innerHTML = `Page ${currentPage} from ${totalPages}. Records ${start+1} to ${stop} of ${items_n}.`;
     make_table(res_d, start, stop);
   }
