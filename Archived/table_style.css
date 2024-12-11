@@ -1,6 +1,6 @@
 table {
   width: 85%;
-  font-size: small;
+  font-size: large;
   /* position: relative; */
   /* display: table-cell; */
 
@@ -25,7 +25,6 @@ th, td {
 }
 
 tr {
-
 
 }
 
